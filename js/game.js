@@ -33,24 +33,37 @@ function preload() {
 }
 function create() {
   this.add.image(100, 300, "background").setScale(0.35);
-  const player = this.physics.add.sprite(128, 210, "trunks");
+  player = this.physics.add.sprite(128, 210, "trunks");
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
   player.body.setGravityY(100);
   platforms = this.physics.add.staticGroup();
-  platforms.create(0, 550, "platform").setScale(2).setOrigin(0, 0);
+  platforms.create(0, 500, "platform").setScale(2).setOrigin(0, 0);
   //TESTING COLLIDDION
   this.physics.add.collider(player, platforms);
   //player animations
   this.anims.create({
     key: "left",
-    frames: this.anims.generateFrameNumbers("trunks", { start: 1, end: 8 }),
+    frames: this.anims.generateFrameNumbers("trunks", { start: 0, end: 8 }),
     frameRate: 10,
     repeat: -1,
   });
 }
 
 function update() {
-  // Update logic her
-  // e
+  // Update logic here
+  cursors = this.input.keyboard.createCursorKeys();
+  if (cursors.left.isDown) {
+    player.setVelocityX(-160);
+  }
+  
+  if (cursors.right.isDown) {
+    player.setVelocityX(160);
+  }
+  if (cursors.up.isDown) {
+    player.setVelocity(-160);
+  }
+  if (cursors.down.isDown) {
+    player.setVelocity(-160);
+  }
 }
