@@ -20,7 +20,7 @@ var game = new Phaser.Game(config);
 function preload() {
   //background
   this.load.image("background", "../assets/background/sky.jpg");
-  this.load.image("platform", "../assets/stage/platform.png");
+  this.load.image("platform", "../assets/stage/ground.png");
   //trunks
   this.load.spritesheet(
     "trunks",
@@ -33,12 +33,24 @@ function preload() {
 }
 function create() {
   this.add.image(100, 300, "background").setScale(0.35);
-  this.add.sprite(100, 300, "trunks").setScale(4);
-
+  const player = this.physics.add.sprite(128, 210, "trunks");
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(true);
+  player.body.setGravityY(100);
   platforms = this.physics.add.staticGroup();
-  platforms.create(400, 568, "platform").setScale(0.5).refreshBody();
+  platforms.create(0, 550, "platform").setScale(2).setOrigin(0, 0);
+  //TESTING COLLIDDION
+  this.physics.add.collider(player, platforms);
+  //player animations
+  this.anims.create({
+    key: "left",
+    frames: this.anims.generateFrameNumbers("trunks", { start: 1, end: 8 }),
+    frameRate: 10,
+    repeat: -1,
+  });
 }
 
 function update() {
-  // Update logic here
+  // Update logic her
+  // e
 }
